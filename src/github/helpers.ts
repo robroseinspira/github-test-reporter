@@ -39,23 +39,10 @@ export function validateCtrfFile(filePath: string): CtrfReport | null {
  */
 export function isMatchingWorkflowRun(
   run: WorkflowRun,
-  githubProperties: GitHubContext,
   currentRun: WorkflowRun
 ): boolean {
-  const isBranchMatch =
-    run.head_branch === githubProperties.branchName &&
-    (run.event === 'push' ||
-      run.event === 'schedule' ||
-      run.event === 'workflow_dispatch')
-
-  const isPRMatch =
-    ((run.event === 'pull_request' || run.event === 'pull_request_target') &&
-      run.pull_requests?.some(
-        pr => pr.number === githubProperties.pullRequest.number
-      )) ||
-    false
 
   const isWorkflowMatch = run.workflow_id === currentRun.workflow_id
 
-  return (isBranchMatch || isPRMatch) && isWorkflowMatch
+  return isWorkflowMatch
 }

@@ -288,7 +288,6 @@ export async function processPreviousResultsAndMetrics(
         }
         const isMatching = isMatchingWorkflowRun(
           run,
-          githubContext,
           currentWorkflowRun
         )
         core.debug(
